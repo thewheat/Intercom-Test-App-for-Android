@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Intercom Test App</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_userid">User ID(optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_save">Save</string>
+    <string name="action_sign_in_unidentified">Register Unidentified</string>
+    <string name="action_update_custom_attribute">Update Custom Attribute</string>
+    <string name="action_submit_event">Submit Event</string>
+
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="title_activity_push_settings">Push Settings</string>
+    <string name="title_activity_event">Event</string>
+    <string name="title_activity_attribute">Attributes</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="confirm_push_notification">This will minimise the app to allow push notification to be received. Continue?</string>
+    <string name="sender_id">Sender ID</string>
+    <string name="gcm_api_key">GCM API Key</string>
+    <string name="token_to_use">Token to use</string>
+    <string name="test_push_notification">Test Push Notification</string>
+    <string name="test_push_message">Test Push Message</string>
+    <string name="email">Email</string>
+    <string name="user_id">User ID</string>
+    <string name="use_my_token">Use Last Token Registered</string>
+    <string name="show_composer">New Message</string>
+    <string name="show_conversations">Conversations List</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="top_left">Top Left</string>
+    <string name="top_right">Top Right</string>
+    <string name="bottom_left">Bottom Left</string>
+    <string name="bottom_right">Bottom Right</string>
+    <string name="login">Login</string>
+    <string name="secure_mode">Secure Mode</string>
+    <string name="push">Push</string>
+    <string name="nav_custom_attributes">Custom Attributes</string>
+    <string name="nav_submit_event">Submit Event</string>
+    <string name="nav_settings">SDK Settings</string>
+    <string name="nav_secure_mode">Configure Secure Mode</string>
+    <string name="nav_push">Push Settings</string>
+    <string name="nav_login">Login</string>
+    <string name="header_sdk_settings">SDK Settings</string>
+    <string name="header_secure_mode_settings">Secure Mode</string>
+    <string name="header_push_settings">Push Settings</string>
+    <string name="header_login">User Login</string>
+    <string name="header_custom_attribute">Custom Attributes</string>
+    <string name="header_events">Events</string>
+    <string name="header_misc_settings">Other Settings</string>
+    <string name="header_position_settings">Chat Head Notification Position</string>
+    <string name="header_visibility_settings">Visibility Settings</string>
+    <string name="header_test_push">Test Push</string>
+    <string name="confirm_close">You will need to completely close the app to initialise it with these new settings (go to multi tasking mode and swipe app away). If you have logcat open you can verify that the app is newly reopened from the following warning message: "GoogleService failed to initialize, status: 10, Missing an expected resource: 'R.string.google_app_id' for initializing Google services.  Possible causes are missing google-services.json or com.google.gms.google-services gradle plugin" </string>
+    <string name="confirm_redirect_to_settings">Invalid settings. Specify App ID and SDK API Key to continue</string>
+    <string name="gcm_api_key_warning">The GCM API Key is used to send test push notifications to this device. It is not needed for regular integrations and also should be considered a secret and not shared.</string>
+    <string name="secret_key_settings_warning">The secret key should NEVER be embedded in the app, it should be used on your server end to keep the key secret. It is enabled here client side as a convenience to have a self contained app without needing server side code</string>
+    <string name="visibility_settings_explained">Hide / Show Intercom elements from your app. This will only work if you have a chat head notification on screen</string>
+    <string name="chat_position_explained">Dictate where the chat head notification appears on your screen. Requires an unread message for this to work</string>
+    <string name="action_show_conversations">Conversation List</string>
+    <string name="action_compose_message">New Message</string>
+</resources>
