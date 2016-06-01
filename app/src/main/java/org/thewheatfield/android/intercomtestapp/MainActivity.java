@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        map.put(R.id.name_input, Settings.LAST_NAME);
         map.put(R.id.email_input, Settings.LAST_EMAIL);
         map.put(R.id.userid_input, Settings.LAST_USER_ID);
 
@@ -179,11 +181,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void onCreateInitialiseIntercom(){
-        String app_id = settings.getValue(Settings.APP_ID);
-        String sdk_api_key = settings.getValue(Settings.SDK_API_KEY);
-        Log.i(TAG, "App ID: " + app_id);
+//        String app_id = settings.getValue(Settings.APP_ID);
+//        String sdk_api_key = settings.getValue(Settings.SDK_API_KEY);
+//        Log.i(TAG, "App ID: " + app_id);
+//
+//        intercomInitialise(app_id, sdk_api_key);
 
-        intercomInitialise(app_id, sdk_api_key);
+        Intent intent = getIntent();
+        if(intent != null){
+            String action = intent.getAction();
+            String data = intent.getDataString();
+            Bundle extras = intent.getExtras();
+            if(extras == null) extras = new Bundle();
+
+
+
+            Log.i(TAG, "Intent. action: " + action + " |data: " + data + "|extras:" + extras.toString());
+        }
+
         Intercom.client().openGCMMessage(getIntent());
     }
     public void intercomInitialise(String app_id, String sdk_api_key){
@@ -222,12 +237,19 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSignIn(View v){
         String email = getData(R.id.email_input);
         String user_id = getData(R.id.userid_input);
+        String name = getData(R.id.name_input);
+        settings.setValue(Settings.LAST_NAME, name);
         settings.setValue(Settings.LAST_EMAIL, email);
         settings.setValue(Settings.LAST_USER_ID, user_id);
 
         Log.i(TAG, "Sign in as registered user. email: " + email + " / user_id: " + user_id);
         Registration registration = new Registration();
         String data = email;
+        Map attributes = new HashMap();
+        if(!name.equals("")) {
+            attributes.put("name", name);
+            registration = registration.withUserAttributes(attributes);
+        }
         if(!email.equals(""))  registration = registration.withEmail(email);
         if(!user_id.equals(""))  {
             registration = registration.withUserId(user_id);
@@ -340,10 +362,26 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String token = getAndSaveToken();
-                String output = "{\"registration_ids\": [\""+ token + "\"], \"data\": {\"image_url\": \"https://intercom.io/test.jpg\",\"intercom_push_type\": \"intercom_push\", \"receiver\": \"intercom_sdk\", \"title\": \"Push Notification for in-app\", \"author_name\": \"in-app message\", \"body\":\"Push notification!\", \"image_url\": \"https://intercom.io/no_icon.jpg\"}}";
+                final String output = "{\"registration_ids\": [\""+ token + "\"], "+
+                        "\"data\": {"+
+                        "\"image_url\": \"https://intercom.io/test.jpg\","+
+                        "\"intercom_push_type\": \"intercom_push\"," +
+                        "\"receiver\": \"intercom_sdk\"," +
+                        "\"title\": \"Push Notification for in-app\", " +
+                        "\"author_name\": \"in-app message\", " +
+                        "\"body\":\"Push notification!\"" +
+                        "}}";
                 Log.i(TAG, "Minimizing app and sending push notification...: " + output);
                 minimizeApp();
-                new SendPushMessage().execute(settings.getValue(Settings.GCM_API_KEY), output);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new SendPushMessage().execute(settings.getValue(Settings.GCM_API_KEY), output);
+                    }
+                }, 500);
+
+
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -356,9 +394,18 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+
     public void onClickTestPushMessage(View v){
         String token = getAndSaveToken();
-        String output = "{\"registration_ids\": [\""+ token + "\"], \"data\": {\"image_url\": \"https://interocm.io/test.jpg\",\"intercom_push_type\": \"push_only\", \"receiver\": \"intercom_sdk\", \"title\": \"Push Message\", \"author_name\": \"push message\", \"body\":\"Push message to sms:123\", \"uri\": \"sms:123\"}}";
+        String output = "{\"registration_ids\": [\""+ token + "\"], " +
+                "\"data\": {" +
+                "\"image_url\": \"https://interocm.io/test.jpg\"," +
+                "\"intercom_push_type\": \"push_only\", " +
+                "\"receiver\": \"intercom_sdk\", " +
+                "\"title\": \"Push Message\", " +
+                "\"body\":\"Push message to sms:123\"," +
+                " \"uri\": \"sms:123\"" +
+                "}}";
         Log.i(TAG, "Send test push message: " + output);
         pushLog("Sending push message...");
         new SendPushMessage().execute(settings.getValue(Settings.GCM_API_KEY), output);

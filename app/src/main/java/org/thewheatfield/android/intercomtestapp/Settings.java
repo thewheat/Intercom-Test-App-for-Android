@@ -15,6 +15,7 @@ public class Settings {
 
 
     public static final String LAST_EMAIL= "LAST_EMAIL";
+    public static final String LAST_NAME = "LAST_NAME";
     public static final String LAST_USER_ID = "LAST_USER_ID";
     public static final String LAST_CUSTOM_ATTRIBUTE_NAME = "LAST_CUSTOM_ATTRIBUTE_NAME";
     public static final String LAST_CUSTOM_ATTRIBUTE_VALUE= "LAST_CUSTOM_ATTRIBUTE_VALUE";
