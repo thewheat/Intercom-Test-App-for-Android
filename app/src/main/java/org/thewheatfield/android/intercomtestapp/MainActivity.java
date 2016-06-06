@@ -150,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
         map.put(R.id.gcm_token, Settings.GCM_TOKEN);
 
-
-
         map.put(R.id.name_input, Settings.LAST_NAME);
         map.put(R.id.email_input, Settings.LAST_EMAIL);
         map.put(R.id.userid_input, Settings.LAST_USER_ID);
@@ -181,11 +179,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void onCreateInitialiseIntercom(){
-//        String app_id = settings.getValue(Settings.APP_ID);
-//        String sdk_api_key = settings.getValue(Settings.SDK_API_KEY);
-//        Log.i(TAG, "App ID: " + app_id);
-//
-//        intercomInitialise(app_id, sdk_api_key);
+        // main Intercom library initalisation done in the Custom Application file as per docs
+        // https://docs.intercom.io/install-on-your-product-or-site/quick-install/install-intercom-on-your-android-app
 
         Intent intent = getIntent();
         if(intent != null){
@@ -193,18 +188,10 @@ public class MainActivity extends AppCompatActivity {
             String data = intent.getDataString();
             Bundle extras = intent.getExtras();
             if(extras == null) extras = new Bundle();
-
-
-
             Log.i(TAG, "Intent. action: " + action + " |data: " + data + "|extras:" + extras.toString());
         }
 
         Intercom.client().openGCMMessage(getIntent());
-    }
-    public void intercomInitialise(String app_id, String sdk_api_key){
-        Log.i(TAG, "Initialise Intercom. App ID: " + app_id + " / SDK API Key: " + sdk_api_key);
-        Intercom.initialize(getApplication(), sdk_api_key, app_id);
-
     }
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

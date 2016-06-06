@@ -1,56 +1,22 @@
 package org.thewheatfield.android.intercomtestapp;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.content.ComponentName;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import io.intercom.android.sdk.Intercom;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -58,17 +24,48 @@ public class SettingsActivity extends AppCompatActivity {
     private Settings settings;
     public static final String TAG = "SettingsActivity";
 
+    // hard code values into your app so you don't need to manually copy and paste them
+    private String HC_app_id = "";
+    private String HC_sdk_api_key = "";
+    private String HC_secret_key = "";
+    private String HC_gcm_api_key = "";
+    private String HC_gcm_sender_id = "";
+
+
+
+    CheckBox ignoreHardcodedValuesCheckbox = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_settings);
+        ignoreHardcodedValuesCheckbox = (CheckBox) findViewById(R.id.checkbox_ignore_hardcoded_values);
+        LinearLayout panelHardcoded = (LinearLayout) findViewById(R.id.panel_hardcoded_values);
+
+
         settings = new Settings(getApplicationContext());
         loadDataFromSettings();
+        if(getIgnoreHardcodedValuesSettings()){
+            if(hasHardcodedValue()) {
+                panelHardcoded.setVisibility(View.VISIBLE);
+            }
+            else{
+                panelHardcoded.setVisibility(View.INVISIBLE);
+            }
+        }
+        else{
+            if(hasHardcodedValue()){
+                saveDataFromHarcodedValues();
+                loadDataFromSettings(); // reload with new data
+                panelHardcoded.setVisibility(View.VISIBLE);
+            }
+            else{
+                panelHardcoded.setVisibility(View.GONE);
+            }
+        }
+
     }
 
     @Override
@@ -82,6 +79,24 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean getIgnoreHardcodedValuesSettings(){
+        return settings.getBoolean(Settings.IGNORE_HARDCODED_VALUES);
+    }
+    private boolean hasHardcodedValue(){
+        return (!HC_app_id.equals("")
+        || !HC_sdk_api_key.equals("")
+        || !HC_secret_key.equals("")
+        || !HC_gcm_api_key.equals("")
+        || !HC_gcm_sender_id.equals("")
+        );
+    }
+    private void saveDataFromHarcodedValues(){
+        if(!HC_app_id.equals(""))         settings.setValue(Settings.APP_ID                     , HC_app_id);
+        if(!HC_sdk_api_key.equals(""))    settings.setValue(Settings.SDK_API_KEY                , HC_sdk_api_key);
+        if(!HC_secret_key.equals(""))     settings.setValue(Settings.SDK_SECURE_MODE_SECRET_KEY , HC_secret_key);
+        if(!HC_gcm_api_key.equals(""))    settings.setValue(Settings.GCM_API_KEY                , HC_gcm_api_key);
+        if(!HC_gcm_sender_id.equals(""))  settings.setValue(Settings.GCM_SENDER_ID              , HC_gcm_sender_id);
+    }
     private void loadDataFromSettings(){
         HashMap map = new HashMap();
         map.put(R.id.app_id, Settings.APP_ID);
@@ -113,6 +128,8 @@ public class SettingsActivity extends AppCompatActivity {
             Map.Entry item = (Map.Entry)i.next();
             setData((int) item.getKey(), settings.getValue((String) item.getValue()));
         }
+
+        ignoreHardcodedValuesCheckbox.setChecked(getIgnoreHardcodedValuesSettings());
     }
 
 
@@ -139,7 +156,19 @@ public class SettingsActivity extends AppCompatActivity {
         String oldData = settings.getValue(Settings.APP_ID) + "_" + settings.getValue(Settings.SDK_API_KEY);
         settings.setValue(Settings.APP_ID, app_id);
         settings.setValue(Settings.SDK_API_KEY, sdk_api_key);
+
+
+        if(hasHardcodedValue()){ // only check hardcoded values if we have any
+            settings.setValue(Settings.IGNORE_HARDCODED_VALUES, ignoreHardcodedValuesCheckbox.isChecked());
+            if(!ignoreHardcodedValuesCheckbox.isChecked()){
+                saveDataFromHarcodedValues();
+                loadDataFromSettings();
+            }
+        }
+
+
         String newData = settings.getValue(Settings.APP_ID) + "_" + settings.getValue(Settings.SDK_API_KEY);
+
         if(!oldData.equals(newData)){ // something has changed. Need to restart
 
             AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);

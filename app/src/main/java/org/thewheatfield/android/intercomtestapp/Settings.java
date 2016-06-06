@@ -24,20 +24,32 @@ public class Settings {
     public static final String LAST_EVENT_METADATA_VALUE = "LAST_EVENT_METADATA_VALUE";
 
 
+    public static final String IGNORE_HARDCODED_VALUES = "IGNORE_HARDCODED_VALUES";
+
+
     private Context context;
 
     public Settings(Context context){
         this.context = context;
     }
     public String getValue(String key){
-
         SharedPreferences prefs = context.getSharedPreferences(Settings.STORE_KEY, context.MODE_PRIVATE);
         return prefs.getString(key, "");
+    }
+    public boolean getBoolean(String key){
+        SharedPreferences prefs = context.getSharedPreferences(Settings.STORE_KEY, context.MODE_PRIVATE);
+        return prefs.getBoolean(key, false);
     }
     public boolean setValue(String key, String value){
         SharedPreferences prefs = context.getSharedPreferences(Settings.STORE_KEY, context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
+        return editor.commit();
+    }
+    public boolean setValue(String key, boolean value){
+        SharedPreferences prefs = context.getSharedPreferences(Settings.STORE_KEY, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
         return editor.commit();
     }
 }

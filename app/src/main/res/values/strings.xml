@@ -77,4 +77,7 @@
     <string name="action_show_conversations">Conversation List</string>
     <string name="action_compose_message">New Message</string>
     <string name="name">Name</string>
+    <string name="ignore_hardcoded_values">Ignore Hardcoded values</string>
+    <string name="hardcoded_values">Hardcoded Values</string>
+    <string name="hardcoded_values_warning">You have hardcoded values defined in your code. If the following checkbox is not checked, the hardcoded values will overwrite any value you have manually specified above</string>
 </resources>

@@ -15,6 +15,9 @@
 - To verify you have logged in, select "Show Conversations" (from the page / menu). It should show you the conversation list (if there is an error it will say "Unable to load conversations")
 - Details of the app are logged (using `Log.i()`) and viewable via logcat
 
+## Hardcoding data
+- If you do not wish to manually copy and paste data in the emulator, you can hardcode values in `SettingsActivity.java`
+
 
 ## Testing GCM
 - Go to https://developers.google.com/cloud-messaging/android/client and click "Get a configuration file" and follow the instructions (It should bring you to  https://developers.google.com/mobile/add?platform=android&cntapi=gcm&cnturl=https:%2F%2Fdevelopers.google.com%2Fcloud-messaging%2Fandroid%2Fclient&cntlbl=Continue%20Adding%20GCM%20Support&%3Fconfigured%3Dtrue and the `google-services.json` configuration file can be used for your real app)
