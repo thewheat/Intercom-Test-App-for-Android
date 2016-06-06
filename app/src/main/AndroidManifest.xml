@@ -29,6 +29,21 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Populate settings based on deeplink "androidTestApp://settings/?app_id=VALUE1&sdk_api_key=VALUE2&secret_key=VALUE3&gcm_api_key=VALUE4&gcm_sender_id=VALUE5" -->
+                <data android:host="settings" android:scheme="androidTestApp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Populate test token using deeplink "androidTestApp://test_gcm_token/YOUR_TOKEN_VALUE" -->
+                <data android:host="test_gcm_token" android:scheme="androidTestApp" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".SettingsActivity"

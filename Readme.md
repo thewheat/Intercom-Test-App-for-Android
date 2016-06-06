@@ -19,6 +19,11 @@
 - If you do not wish to manually copy and paste data in the emulator, you can hardcode values in `SettingsActivity.java`
 
 
+## Specifying data using deeplinks
+- Settings page: `androidTestApp://settings/?app_id=VALUE1&sdk_api_key=VALUE2&secret_key=VALUE3&gcm_api_key=VALUE4&gcm_sender_id=VALUE5`
+- Test GCM Token value: `androidTestApp://test_gcm_token/YOUR_TOKEN_VALUE` (replace `YOUR_TOKEN_VALUE` with the value you wish to test)
+
+
 ## Testing GCM
 - Go to https://developers.google.com/cloud-messaging/android/client and click "Get a configuration file" and follow the instructions (It should bring you to  https://developers.google.com/mobile/add?platform=android&cntapi=gcm&cnturl=https:%2F%2Fdevelopers.google.com%2Fcloud-messaging%2Fandroid%2Fclient&cntlbl=Continue%20Adding%20GCM%20Support&%3Fconfigured%3Dtrue and the `google-services.json` configuration file can be used for your real app)
 - Specify the following in the Settings page

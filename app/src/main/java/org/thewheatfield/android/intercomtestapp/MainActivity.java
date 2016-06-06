@@ -2,6 +2,7 @@ package org.thewheatfield.android.intercomtestapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,10 +56,28 @@ public class MainActivity extends AppCompatActivity {
         loadDataFromSettings();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        onNewIntent(getIntent());
+
         checkRedirectToSettings();
 
     }
+    protected void onNewIntent(Intent intent) {
+        String action = intent.getAction();
+        String data = intent.getDataString();
+        if (Intent.ACTION_VIEW.equals(action) && data != null) {
+            Uri uri = Uri.parse(data);
+            if(uri.getHost().equalsIgnoreCase("settings")) {
+                startSettingsActivity(intent.getData());
+            }
+            else if(uri.getHost().equalsIgnoreCase("test_gcm_token")) {
+                String token = uri.getLastPathSegment();
+                if(token != null && !token.equals(""))
+                    setData(R.id.gcm_token, token);
+            }
 
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -110,11 +129,41 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void startSettingsActivity(){
+        startSettingsActivity(null);
+    }
+
+    private void startSettingsActivity(Uri uri){
         Intent intent = new Intent(this, SettingsActivity.class);
+        if(uri != null) {
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(uri);
+        }
         startActivity(intent);
         // startActivityForResult(intent, REQUEST_EXIT);
     }
 
+    private void loadDataFromDeepLink(String data){
+        Uri uri = Uri.parse(data);
+        HashMap map = new HashMap();
+
+        map.put("app_id", R.id.app_id);
+        map.put("sdk_api_key", R.id.sdk_api_key);
+        map.put("secret_key", R.id.secret_key);
+        map.put("gcm_api_key", R.id.gcm_api_key);
+        map.put("gcm_sender_id", R.id.gcm_sender_id);
+
+        Set set = map.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()) {
+            Map.Entry item = (Map.Entry)i.next();
+            String key = (String) item.getKey();
+            int ui_id = (int) item.getValue();
+            String value = uri.getQueryParameter(key);
+            if(value != null && !value.equals("")){
+                setData(ui_id, value);
+            }
+        }
+    }
 
 //    // part of trying to close app to reinitialise SDK on update of value. Not working - 1
 //    private int REQUEST_EXIT = 1;

@@ -1,6 +1,8 @@
 package org.thewheatfield.android.intercomtestapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -65,9 +67,41 @@ public class SettingsActivity extends AppCompatActivity {
                 panelHardcoded.setVisibility(View.GONE);
             }
         }
+        onNewIntent(getIntent());
 
     }
 
+    protected void onNewIntent(Intent intent) {
+        String action = intent.getAction();
+        String data = intent.getDataString();
+        if (Intent.ACTION_VIEW.equals(action) && data != null) {
+            Log.d(TAG, "Intent received, with data: " + data);
+            loadDataFromDeepLink(data);
+        }
+    }
+
+    private void loadDataFromDeepLink(String data){
+        Uri uri = Uri.parse(data);
+        HashMap map = new HashMap();
+
+        map.put("app_id", R.id.app_id);
+        map.put("sdk_api_key", R.id.sdk_api_key);
+        map.put("secret_key", R.id.secret_key);
+        map.put("gcm_api_key", R.id.gcm_api_key);
+        map.put("gcm_sender_id", R.id.gcm_sender_id);
+
+        Set set = map.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()) {
+            Map.Entry item = (Map.Entry)i.next();
+            String key = (String) item.getKey();
+            int ui_id = (int) item.getValue();
+            String value = uri.getQueryParameter(key);
+            if(value != null && !value.equals("")){
+                setData(ui_id, value);
+            }
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
