@@ -140,7 +140,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:paddingTop="@dimen/activity_vertical_margin_header"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:text="@string/header_custom_attribute"
+                android:text="@string/header_attribute"
                 />
 
             <LinearLayout
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Custom Attribute Name"
+                    android:text="Attribute Name"
                     android:layout_gravity="center_horizontal" />
 
                 <EditText
@@ -162,6 +162,7 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Custom Attribute Value"
+                    android:text=" Attribute Value"
                     android:layout_gravity="center_horizontal" />
 
                 <EditText
@@ -181,6 +182,30 @@
                     android:singleLine="true" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/attribute_type_custom"
+                        android:id="@+id/radioButtonCustom" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/attribute_type_standard"
+                        android:id="@+id/radioButtonStandard" />
+                </RadioGroup>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,10 +214,10 @@
                     android:id="@+id/update_attribute"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_update_custom_attribute"
+                    android:text="@string/action_update_attribute"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:onClick="onClickUpdateCustomAttribute" />
+                    android:onClick="onClickUpdateAttribute" />
 
             </LinearLayout>
         </LinearLayout>

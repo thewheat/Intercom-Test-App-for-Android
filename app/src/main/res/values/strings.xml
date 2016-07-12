@@ -14,7 +14,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_save">Save</string>
     <string name="action_sign_in_unidentified">Register Unidentified</string>
-    <string name="action_update_custom_attribute">Update Custom Attribute</string>
+    <string name="action_update_attribute">Update Attribute</string>
     <string name="action_submit_event">Submit Event</string>
 
 
@@ -62,7 +62,7 @@
     <string name="header_secure_mode_settings">Secure Mode</string>
     <string name="header_push_settings">Push Settings</string>
     <string name="header_login">User Login</string>
-    <string name="header_custom_attribute">Custom Attributes</string>
+    <string name="header_attribute">Attributes</string>
     <string name="header_events">Events</string>
     <string name="header_misc_settings">Other Settings</string>
     <string name="header_position_settings">Chat Head Notification Position</string>
@@ -80,4 +80,6 @@
     <string name="ignore_hardcoded_values">Ignore Hardcoded values</string>
     <string name="hardcoded_values">Hardcoded Values</string>
     <string name="hardcoded_values_warning">You have hardcoded values defined in your code. If the following checkbox is not checked, the hardcoded values will overwrite any value you have manually specified above</string>
+    <string name="attribute_type_custom">Custom (e.g. phone)</string>
+    <string name="attribute_type_standard">Standard (e.g. email)</string>
 </resources>

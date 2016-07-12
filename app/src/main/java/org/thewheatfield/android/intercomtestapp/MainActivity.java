@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -319,27 +320,28 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Logout");
         Intercom.client().reset();
     }
-    public void onClickUpdateCustomAttribute(View v){
+    public void onClickUpdateAttribute(View v){
         // TODO: Enable adding non string values of events (e.g. numbers, dates)
         String value = getData(R.id.custom_data_val);
         String name = getData(R.id.custom_data_var);
         settings.setValue(Settings.LAST_CUSTOM_ATTRIBUTE_NAME, name);
         settings.setValue(Settings.LAST_CUSTOM_ATTRIBUTE_VALUE, value);
-        Log.i(TAG, "Update Custom Attribute. Name: " + name + " / Value: " + value);
+        RadioButton typeStandard = (RadioButton) findViewById(R.id.radioButtonStandard);
+
+
+        Log.i(TAG, "Update Attribute. Name: " + name + " / Value: " + value + " / Type: " + (typeStandard.isChecked() ? "Standard" : "Custom"));
         Map map = new HashMap();
-        Map customAttributes = new HashMap ();
-        customAttributes.put(name, value);
-        map.put("custom_attributes", customAttributes);
+        Map attributes = new HashMap ();
+        attributes.put(name, value);
+        if(typeStandard.isChecked())
+            map = attributes;
+        else{
+            map.put("custom_attributes", attributes);
+        }
+
         Intercom.client().updateUser(map);
     }
-    public void onClickUpdateAttribute(View v){
-        String value = getData(R.id.custom_data_val);
-        String name = getData(R.id.custom_data_var);
-        Log.i(TAG, "Update Attribute. Name: " + name + " / Value: " + value);
-        Map map = new HashMap();
-        map.put(name, value);
-        Intercom.client().updateUser(map);
-    }
+
     public void onClickSubmitEvent(View v){
         // TODO: Enable adding non string values of metadata (e.g. numbers, dates)
         String name = getData(R.id.event_name);
