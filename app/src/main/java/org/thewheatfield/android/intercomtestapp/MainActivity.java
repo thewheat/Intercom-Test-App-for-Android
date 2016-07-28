@@ -36,7 +36,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.identity.Registration;
-import io.intercom.android.sdk.preview.IntercomPreviewPosition;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -240,8 +240,7 @@ public class MainActivity extends AppCompatActivity {
             if(extras == null) extras = new Bundle();
             Log.i(TAG, "Intent. action: " + action + " |data: " + data + "|extras:" + extras.toString());
         }
-
-        Intercom.client().openGCMMessage(getIntent());
+        Intercom.client().handlePushMessage();
     }
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -294,23 +293,8 @@ public class MainActivity extends AppCompatActivity {
         }
         intercomCheckSecureMode(data);
         Intercom.client().registerIdentifiedUser(registration);
-        setUpPush();
     }
-    // from Intercom gcm sample code - 1 // https://github.com/intercom/intercom-android/tree/master/samples/intercom-gcm-sample
-    private void setUpPush() {
-        //make sure we have google play services available,
-        //without it we can't receive push notifications
-        if (checkPlayServices()) {
-            // Start IntentService to register this application with GCM.
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
-        }
-    }
-    public boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        return resultCode == ConnectionResult.SUCCESS;
-    }
-    // from Intercom gcm sample code - 0
+
 
     public void onClickSignInUnidentified(View v){
         Log.i(TAG, "Sign in as unregistered user");
@@ -366,29 +350,29 @@ public class MainActivity extends AppCompatActivity {
     public void onClickShowComposer(View v) {
         Intercom.client().displayMessageComposer();
     }
-    public void onClickHide(View v) {
-        Intercom.client().setVisibility(Intercom.GONE);
-    }
-    public void onClickShow(View v) {
-        Intercom.client().setVisibility(Intercom.VISIBLE);
-    }
-    public void onClickPositionBottomLeft(View v) {
-        changePosition(IntercomPreviewPosition.BOTTOM_LEFT);
-    }
-    public void onClickPositionBottomRight(View v) {
-        changePosition(IntercomPreviewPosition.BOTTOM_RIGHT);
-    }
-    public void onClickPositionTopLeft(View v) {
-        changePosition(IntercomPreviewPosition.TOP_LEFT);
-    }
-    public void onClickPositionTopRight(View v) {
-        changePosition(IntercomPreviewPosition.TOP_RIGHT);
-    }
-    public void changePosition(IntercomPreviewPosition position) {
-        onClickHide(null);
-        Intercom.client().setPreviewPosition(position);
-        onClickShow(null);
-    }
+//    public void onClickHide(View v) {
+//        Intercom.client().setVisibility(Intercom.GONE);
+//    }
+//    public void onClickShow(View v) {
+//        Intercom.client().setVisibility(Intercom.VISIBLE);
+//    }
+//    public void onClickPositionBottomLeft(View v) {
+//        changePosition(IntercomPreviewPosition.BOTTOM_LEFT);
+//    }
+//    public void onClickPositionBottomRight(View v) {
+//        changePosition(IntercomPreviewPosition.BOTTOM_RIGHT);
+//    }
+//    public void onClickPositionTopLeft(View v) {
+//        changePosition(IntercomPreviewPosition.TOP_LEFT);
+//    }
+//    public void onClickPositionTopRight(View v) {
+//        changePosition(IntercomPreviewPosition.TOP_RIGHT);
+//    }
+//    public void changePosition(IntercomPreviewPosition position) {
+//        onClickHide(null);
+//        Intercom.client().setPreviewPosition(position);
+//        onClickShow(null);
+//    }
     public void pushLog(String msg){
         txtPushLog.setText(msg);
     }
