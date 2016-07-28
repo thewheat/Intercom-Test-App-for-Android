@@ -36,7 +36,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.identity.Registration;
-import io.intercom.android.sdk.preview.IntercomPreviewPosition;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "Intent. action: " + action + " |data: " + data + "|extras:" + extras.toString());
         }
 
-        Intercom.client().openGCMMessage(getIntent());
+        Intercom.client().openGcmMessage();
     }
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -366,29 +366,29 @@ public class MainActivity extends AppCompatActivity {
     public void onClickShowComposer(View v) {
         Intercom.client().displayMessageComposer();
     }
-    public void onClickHide(View v) {
-        Intercom.client().setVisibility(Intercom.GONE);
-    }
-    public void onClickShow(View v) {
-        Intercom.client().setVisibility(Intercom.VISIBLE);
-    }
-    public void onClickPositionBottomLeft(View v) {
-        changePosition(IntercomPreviewPosition.BOTTOM_LEFT);
-    }
-    public void onClickPositionBottomRight(View v) {
-        changePosition(IntercomPreviewPosition.BOTTOM_RIGHT);
-    }
-    public void onClickPositionTopLeft(View v) {
-        changePosition(IntercomPreviewPosition.TOP_LEFT);
-    }
-    public void onClickPositionTopRight(View v) {
-        changePosition(IntercomPreviewPosition.TOP_RIGHT);
-    }
-    public void changePosition(IntercomPreviewPosition position) {
-        onClickHide(null);
-        Intercom.client().setPreviewPosition(position);
-        onClickShow(null);
-    }
+//    public void onClickHide(View v) {
+//        Intercom.client().setVisibility(Intercom.GONE);
+//    }
+//    public void onClickShow(View v) {
+//        Intercom.client().setVisibility(Intercom.VISIBLE);
+//    }
+//    public void onClickPositionBottomLeft(View v) {
+//        changePosition(IntercomPreviewPosition.BOTTOM_LEFT);
+//    }
+//    public void onClickPositionBottomRight(View v) {
+//        changePosition(IntercomPreviewPosition.BOTTOM_RIGHT);
+//    }
+//    public void onClickPositionTopLeft(View v) {
+//        changePosition(IntercomPreviewPosition.TOP_LEFT);
+//    }
+//    public void onClickPositionTopRight(View v) {
+//        changePosition(IntercomPreviewPosition.TOP_RIGHT);
+//    }
+//    public void changePosition(IntercomPreviewPosition position) {
+//        onClickHide(null);
+//        Intercom.client().setPreviewPosition(position);
+//        onClickShow(null);
+//    }
     public void pushLog(String msg){
         txtPushLog.setText(msg);
     }

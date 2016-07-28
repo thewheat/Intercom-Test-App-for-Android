@@ -35,7 +35,7 @@ public class RegistrationIntentService extends IntentService {
 
     private void sendRegistrationToServer(String token) {
         Log.i(TAG, "GCM Registration Token sent to Intercom: " + token);
-        Intercom.client().setupGCM(token, R.mipmap.ic_sdk);
+        //Intercom.client().setupGCM(token, R.mipmap.ic_sdk);
         /*
         if icon doesn't exist
 05-14 18:28:34.132 31711-32324/org.thewheatfield.android.intercomtestapp E/AndroidRuntime: FATAL EXCEPTION: IntentService[GcmIntentService]
