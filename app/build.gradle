@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "org.thewheatfield.android.intercomtestapp"
+        applicationId "org.thewheatfield.android.intercomtestapp.onex"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 5

@@ -1,4 +1,4 @@
-package org.thewheatfield.android.intercomtestapp;
+package org.thewheatfield.android.intercomtestapp.onex;
 
 import android.content.Context;
 import android.content.SharedPreferences;
