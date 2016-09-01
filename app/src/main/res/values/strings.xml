@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Intercom Test App</string>
+    <string name="intercom_gcm_sender_id">YOUR_SENDER_ID</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -45,9 +46,6 @@
     <string name="show_conversations">Conversations List</string>
     <string name="show">Show</string>
     <string name="hide">Hide</string>
-    <string name="top_left">Top Left</string>
-    <string name="top_right">Top Right</string>
-    <string name="bottom_left">Bottom Left</string>
     <string name="bottom_right">Bottom Right</string>
     <string name="login">Login</string>
     <string name="secure_mode">Secure Mode</string>
@@ -65,8 +63,10 @@
     <string name="header_attribute">Attributes</string>
     <string name="header_events">Events</string>
     <string name="header_misc_settings">Other Settings</string>
-    <string name="header_position_settings">Chat Head Notification Position</string>
+    <string name="header_launcher_settings">Launcher Settings</string>
+    <string name="header_interface_settings">Interface Settings</string>
     <string name="header_visibility_settings">Visibility Settings</string>
+    <string name="header_unread_settings">Unread Count Settings</string>
     <string name="header_test_push">Test Push</string>
     <string name="confirm_close">You will need to completely close the app to initialise it with these new settings (go to multi tasking mode and swipe app away). If you have logcat open you can verify that the app is newly reopened from the following warning message: "GoogleService failed to initialize, status: 10, Missing an expected resource: 'R.string.google_app_id' for initializing Google services.  Possible causes are missing google-services.json or com.google.gms.google-services gradle plugin" </string>
     <string name="confirm_redirect_to_settings">Invalid settings. Specify App ID and SDK API Key to continue</string>
@@ -82,4 +82,9 @@
     <string name="hardcoded_values_warning">You have hardcoded values defined in your code. If the following checkbox is not checked, the hardcoded values will overwrite any value you have manually specified above</string>
     <string name="attribute_type_custom">Custom (e.g. phone)</string>
     <string name="attribute_type_standard">Standard (e.g. email)</string>
+    <string name="show_unread_count">Show Unread Count</string>
+    <string name="header_messenger_settings">Messenger Settings</string>
+    <string name="unread_start">Start Listener</string>
+    <string name="unread_stop">Stop Listener</string>
+    <string name="hide_after_5">Hide after 5 seconds</string>
 </resources>

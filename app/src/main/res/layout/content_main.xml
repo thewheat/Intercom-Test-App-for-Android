@@ -480,15 +480,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:paddingTop="@dimen/activity_vertical_margin_header"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:text="@string/header_position_settings"
+                android:text="@string/header_launcher_settings"
                 />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/chat_position_explained"
-                android:id="@+id/textView3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -497,8 +490,8 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/top_left"
-                    android:onClick="onClickPositionTopLeft"
+                    android:text="@string/show"
+                    android:onClick="onClickLauncherShow"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     />
@@ -506,8 +499,68 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/top_right"
-                    android:onClick="onClickPositionTopRight"
+                    android:text="@string/hide"
+                    android:onClick="onClickLauncherHide"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="@dimen/activity_vertical_margin_header"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="@string/header_messenger_settings"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show"
+                    android:onClick="onClickMessengerShow"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hide_after_5"
+                    android:onClick="onClickMessengerHide"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="@dimen/activity_vertical_margin_header"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="@string/header_unread_settings"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unread_start"
+                    android:onClick="onClickUnreadReadListenerStart"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unread_stop"
+                    android:onClick="onClickUnreadReadListenerStop"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     />
@@ -519,20 +572,12 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/bottom_left"
-                    android:onClick="onClickPositionBottomLeft"
+                    android:text="@string/show_unread_count"
+                    android:onClick="onClickUnreadReadCount"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     />
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bottom_right"
-                    android:onClick="onClickPositionBottomRight"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    />
             </LinearLayout>
 
         </LinearLayout>
