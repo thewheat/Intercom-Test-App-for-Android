@@ -35,6 +35,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UnreadConversationCountListener;
+import io.intercom.android.sdk.UserAttributes;
 import io.intercom.android.sdk.identity.Registration;
 
 public class MainActivity extends AppCompatActivity implements UnreadConversationCountListener {
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         String secret = settings.getValue(Settings.SDK_SECURE_MODE_SECRET_KEY);
         Log.i(TAG, "Check secure mode. Data: " + data + " / Set Secure mode?: " + (!secret.equals("")));
         if(!secret.equals("")) {
-            Intercom.client().setSecureMode(generateHash(data, secret),data);
+            Intercom.client().setUserHash(generateHash(data, secret));
         }
     }
     public void onCreateInitialiseIntercom(){
@@ -240,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
             Log.i(TAG, "Intent. action: " + action + " |data: " + data + "|extras:" + extras.toString());
         }
 
-        Intercom.client().openGcmMessage();
+        Intercom.client().handlePushMessage();
     }
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -281,10 +282,10 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         Log.i(TAG, "Sign in as registered user. email: " + email + " / user_id: " + user_id);
         Registration registration = new Registration();
         String data = email;
-        Map attributes = new HashMap();
+        UserAttributes userAttributes = null;
         if(!name.equals("")) {
-            attributes.put("name", name);
-            registration = registration.withUserAttributes(attributes);
+            userAttributes = new UserAttributes.Builder().withName(name).build();
+            registration = registration.withUserAttributes(userAttributes);
         }
         if(!email.equals(""))  registration = registration.withEmail(email);
         if(!user_id.equals(""))  {
@@ -313,16 +314,55 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
 
 
         Log.i(TAG, "Update Attribute. Name: " + name + " / Value: " + value + " / Type: " + (typeStandard.isChecked() ? "Standard" : "Custom"));
-        Map map = new HashMap();
-        Map attributes = new HashMap ();
-        attributes.put(name, value);
-        if(typeStandard.isChecked())
-            map = attributes;
-        else{
-            map.put("custom_attributes", attributes);
+        UserAttributes userAttributes = null;
+        boolean found = false;
+        if(typeStandard.isChecked()){
+            switch(name.toLowerCase()){
+                case "name":
+                    found = true;
+                    userAttributes = new UserAttributes.Builder().withName(value).build();
+                    break;
+                case "email":
+                    found = true;
+                    userAttributes = new UserAttributes.Builder().withEmail(value).build();
+                    break;
+                case "phone":
+                    found = true;
+                    userAttributes = new UserAttributes.Builder().withPhone(value).build();
+                    break;
+                case "languageoverride":
+                case "language_override":
+                    found = true;
+                    userAttributes = new UserAttributes.Builder().withLanguageOverride(value).build();
+                    break;
+                case "signed_up_at":
+                case "created_at":
+                case "remote_created_at":
+                    long date = 0;
+                    try{
+                        date= Long.parseLong(value);
+                        userAttributes = new UserAttributes.Builder().withSignedUpAt(date).build();
+                        found = true;
+                    }
+                    catch(NumberFormatException ex){
+                        Toast.makeText(getApplicationContext(), "Invalid date value use a Unix timestamp", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    break;
+                case "unsubscribed_from_emails":
+                    found = true;
+                    userAttributes = new UserAttributes.Builder().withUnsubscribedFromEmails(value.toLowerCase().equals("true")).build();
+                    break;
+            }
         }
-
-        Intercom.client().updateUser(map);
+        else{
+            userAttributes = new UserAttributes.Builder().withCustomAttribute(name, value).build();
+        }
+        if(found && userAttributes != null){
+            Intercom.client().updateUser(userAttributes);
+        }else{
+            Toast.makeText(getApplicationContext(), "Invalid standard attribute: " + Intercom.client().getUnreadConversationCount(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onClickSubmitEvent(View v){
