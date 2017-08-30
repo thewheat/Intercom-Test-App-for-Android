@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         map.put("sdk_api_key", R.id.sdk_api_key);
         map.put("secret_key", R.id.secret_key);
         map.put("gcm_api_key", R.id.gcm_api_key);
-        map.put("gcm_sender_id", R.id.gcm_sender_id);
 
         Set set = map.entrySet();
         Iterator i = set.iterator();
@@ -196,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         map.put(R.id.secret_key, Settings.SDK_SECURE_MODE_SECRET_KEY);
 
         map.put(R.id.gcm_api_key, Settings.GCM_API_KEY);
-        map.put(R.id.gcm_sender_id, Settings.GCM_SENDER_ID);
 
         map.put(R.id.gcm_token, Settings.GCM_TOKEN);
 

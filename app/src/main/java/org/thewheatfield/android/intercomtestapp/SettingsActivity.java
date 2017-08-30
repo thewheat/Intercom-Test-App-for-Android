@@ -31,7 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
     private String HC_sdk_api_key = "";
     private String HC_secret_key = "";
     private String HC_gcm_api_key = "";
-    private String HC_gcm_sender_id = "";
 
 
 
@@ -88,7 +87,6 @@ public class SettingsActivity extends AppCompatActivity {
         map.put("sdk_api_key", R.id.sdk_api_key);
         map.put("secret_key", R.id.secret_key);
         map.put("gcm_api_key", R.id.gcm_api_key);
-        map.put("gcm_sender_id", R.id.gcm_sender_id);
 
         Set set = map.entrySet();
         Iterator i = set.iterator();
@@ -121,7 +119,6 @@ public class SettingsActivity extends AppCompatActivity {
         || !HC_sdk_api_key.equals("")
         || !HC_secret_key.equals("")
         || !HC_gcm_api_key.equals("")
-        || !HC_gcm_sender_id.equals("")
         );
     }
     private void saveDataFromHarcodedValues(){
@@ -129,7 +126,6 @@ public class SettingsActivity extends AppCompatActivity {
         if(!HC_sdk_api_key.equals(""))    settings.setValue(Settings.SDK_API_KEY                , HC_sdk_api_key);
         if(!HC_secret_key.equals(""))     settings.setValue(Settings.SDK_SECURE_MODE_SECRET_KEY , HC_secret_key);
         if(!HC_gcm_api_key.equals(""))    settings.setValue(Settings.GCM_API_KEY                , HC_gcm_api_key);
-        if(!HC_gcm_sender_id.equals(""))  settings.setValue(Settings.GCM_SENDER_ID              , HC_gcm_sender_id);
     }
     private void loadDataFromSettings(){
         HashMap map = new HashMap();
@@ -139,7 +135,6 @@ public class SettingsActivity extends AppCompatActivity {
         map.put(R.id.secret_key, Settings.SDK_SECURE_MODE_SECRET_KEY);
 
         map.put(R.id.gcm_api_key, Settings.GCM_API_KEY);
-        map.put(R.id.gcm_sender_id, Settings.GCM_SENDER_ID);
 
         map.put(R.id.gcm_token, Settings.GCM_TOKEN);
 
@@ -253,11 +248,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onClickSavePushSettings(View v){
-        String gcm_sender_id = getData(R.id.gcm_sender_id);
         String gcm_api_key = getData(R.id.gcm_api_key);
-        Log.i(TAG, "Save GCM Settings. GCM API Key: " + gcm_api_key+ " / GCM Sender ID: " + gcm_sender_id);
+        Log.i(TAG, "Save GCM Settings. GCM API Key: " + gcm_api_key);
         settings.setValue(Settings.GCM_API_KEY, gcm_api_key);
-        settings.setValue(Settings.GCM_SENDER_ID, gcm_sender_id);
     }
 
 
