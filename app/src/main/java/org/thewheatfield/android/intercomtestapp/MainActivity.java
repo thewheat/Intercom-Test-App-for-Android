@@ -384,11 +384,12 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
     public void onClickShowConversations(View v) {
         Intercom.client().displayConversationsList();
     }
-    public void onClickShowComposer(View v) {
-        Intercom.client().displayMessageComposer();
-    }
+    public void onClickShowComposer(View v) { Intercom.client().displayMessageComposer(getData(R.id.message_prefill_value)); }
     public void onClickHide(View v) {
         Intercom.client().setInAppMessageVisibility(Intercom.GONE);
+    }
+    public void onClickSetPadding(View v) {
+        Intercom.client().setBottomPadding(Integer.parseInt(getData(R.id.bottom_padding)));
     }
     public void onClickShow(View v) {
         Intercom.client().setInAppMessageVisibility(Intercom.VISIBLE);

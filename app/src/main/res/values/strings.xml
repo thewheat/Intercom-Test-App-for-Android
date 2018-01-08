@@ -63,6 +63,9 @@
     <string name="header_attribute">Attributes</string>
     <string name="header_events">Events</string>
     <string name="header_misc_settings">Other Settings</string>
+    <string name="header_new_message_prefill">Prefill text</string>
+    <string name="header_launcher_padding">Launcher Padding</string>
+    <string name="action_launcher_padding">Set Padding</string>
     <string name="header_launcher_settings">Launcher Settings</string>
     <string name="header_interface_settings">Interface Settings</string>
     <string name="header_visibility_settings">Visibility Settings</string>
