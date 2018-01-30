@@ -423,9 +423,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/show_conversations"
                     android:onClick="onClickShowConversations"
@@ -434,10 +434,19 @@
                     />
 
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/show_composer"
                     android:onClick="onClickShowComposer"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_help_center"
+                    android:onClick="onClickDisplayHelpCenter"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     />

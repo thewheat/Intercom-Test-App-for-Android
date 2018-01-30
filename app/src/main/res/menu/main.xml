@@ -12,6 +12,11 @@
         android:title="@string/action_compose_message"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_display_help_center"
+        android:orderInCategory="30"
+        android:title="@string/show_help_center"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

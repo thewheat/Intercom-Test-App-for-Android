@@ -86,6 +86,7 @@
     <string name="attribute_type_custom">Custom (e.g. phone)</string>
     <string name="attribute_type_standard">Standard (e.g. email)</string>
     <string name="show_unread_count">Show Unread Count</string>
+    <string name="show_help_center">Show Help Center</string>
     <string name="header_messenger_settings">Messenger Settings</string>
     <string name="unread_start">Start Listener</string>
     <string name="unread_stop">Stop Listener</string>

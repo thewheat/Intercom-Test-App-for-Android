@@ -15,5 +15,6 @@ public class IntercomTestApp extends Application {
         String sdk_api_key = settings.getValue(Settings.SDK_API_KEY);
         Log.i(TAG, "Initialise Intercom. App ID: " + app_id + " / SDK API Key: " + sdk_api_key);
         Intercom.initialize(this, sdk_api_key, app_id);
+        Intercom.setLogLevel(Intercom.LogLevel.DEBUG);
     }
 }

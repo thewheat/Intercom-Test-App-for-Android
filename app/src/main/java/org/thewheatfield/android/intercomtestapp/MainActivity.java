@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
             Intercom.client().displayMessageComposer();
             return true;
         }
+        else if (id == R.id.action_display_help_center){
+            Intercom.client().displayHelpCenter();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -422,6 +426,11 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
     public void onClickUnreadReadCount(View v) {
         Toast.makeText(getApplicationContext(), "Unread count: " + Intercom.client().getUnreadConversationCount(), Toast.LENGTH_LONG).show();
     }
+
+    public void onClickDisplayHelpCenter(View v) {
+        Intercom.client().displayHelpCenter();
+    }
+
     public void pushLog(String msg){
         txtPushLog.setText(msg);
     }
