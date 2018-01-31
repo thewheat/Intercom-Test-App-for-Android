@@ -1,11 +1,12 @@
 package org.thewheatfield.android.intercomtestapp;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import io.intercom.android.sdk.Intercom;
 
-public class IntercomTestApp extends Application {
+public class IntercomTestApp extends MultiDexApplication {
     public static final String TAG = "IntercomTestApp";
     private Settings settings;
     @Override public void onCreate() {
