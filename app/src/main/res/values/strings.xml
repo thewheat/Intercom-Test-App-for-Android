@@ -41,7 +41,7 @@
     <string name="test_push_message">Test Push Message</string>
     <string name="email">Email</string>
     <string name="user_id">User ID</string>
-    <string name="use_my_token">Use Last Token Registered</string>
+    <string name="use_my_token">Use My Token</string>
     <string name="show_composer">New Message</string>
     <string name="show_conversations">Conversations List</string>
     <string name="show">Show</string>
@@ -73,7 +73,7 @@
     <string name="header_test_push">Test Push</string>
     <string name="confirm_close">You will need to completely close the app to initialise it with these new settings (go to multi tasking mode and swipe app away). If you have logcat open you can verify that the app is newly reopened from the following warning message: "GoogleService failed to initialize, status: 10, Missing an expected resource: 'R.string.google_app_id' for initializing Google services.  Possible causes are missing google-services.json or com.google.gms.google-services gradle plugin" </string>
     <string name="confirm_redirect_to_settings">Invalid settings. Specify App ID and SDK API Key to continue</string>
-    <string name="gcm_api_key_warning">The GCM API Key is used to send test push notifications to this device. It is not needed for regular integrations and also should be considered a secret and not shared.</string>
+    <string name="gcm_api_key_warning">The FCM API Key is used to send test push notifications to this device. It is not needed for regular integrations and also should be considered a secret and not shared.</string>
     <string name="secret_key_settings_warning">The secret key should NEVER be embedded in the app, it should be used on your server end to keep the key secret. It is enabled here client side as a convenience to have a self contained app without needing server side code</string>
     <string name="visibility_settings_explained">Hide / Show Intercom elements from your app. This will only work if you have a chat head notification on screen</string>
     <string name="chat_position_explained">Dictate where the chat head notification appears on your screen. Requires an unread message for this to work</string>

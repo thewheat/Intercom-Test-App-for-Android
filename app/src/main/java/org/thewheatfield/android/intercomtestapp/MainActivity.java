@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -497,7 +499,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         return token;
     }
     public void onClickGCMUseMyToken(View v){
-        setData(R.id.gcm_token, settings.getValue(settings.GCM_TOKEN));
+        setData(R.id.gcm_token, FirebaseInstanceId.getInstance().getToken());
     }
 
     public void minimizeApp() {
