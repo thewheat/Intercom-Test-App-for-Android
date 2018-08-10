@@ -1,5 +1,6 @@
 package org.thewheatfield.android.intercomtestapp;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,7 +29,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         Log.i(TAG, "onCreate");
         settings = new Settings(getApplicationContext());
         setContentView(R.layout.activity_main);
-        txtPushLog = (TextView) findViewById(R.id.txtPushLog);
+        txtPushLog = findViewById(R.id.txtPushLog);
         onCreateInitialiseIntercom();
         loadDataFromSettings();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         onNewIntent(getIntent());
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
             return true;
         }
         else if (id == R.id.action_show_conversations) {
-            Intercom.client().displayConversationsList();
+            Intercom.client().displayMessenger();
             return true;
         }
         else if (id == R.id.action_compose_message) {
@@ -146,55 +146,18 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
             intent.setData(uri);
         }
         startActivity(intent);
-        // startActivityForResult(intent, REQUEST_EXIT);
     }
-
-    private void loadDataFromDeepLink(String data){
-        Uri uri = Uri.parse(data);
-        HashMap map = new HashMap();
-
-        map.put("app_id", R.id.app_id);
-        map.put("sdk_api_key", R.id.sdk_api_key);
-        map.put("secret_key", R.id.secret_key);
-        map.put("gcm_api_key", R.id.gcm_api_key);
-
-        Set set = map.entrySet();
-        Iterator i = set.iterator();
-        while(i.hasNext()) {
-            Map.Entry item = (Map.Entry)i.next();
-            String key = (String) item.getKey();
-            int ui_id = (int) item.getValue();
-            String value = uri.getQueryParameter(key);
-            if(value != null && !value.equals("")){
-                setData(ui_id, value);
-            }
-        }
-    }
-
-//    // part of trying to close app to reinitialise SDK on update of value. Not working - 1
-//    private int REQUEST_EXIT = 1;
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        if (requestCode == REQUEST_EXIT) {
-//            if (resultCode == RESULT_OK) {
-//                this.finish();
-//
-//            }
-//        }
-//    }
-//    // part of trying to close app to reinitialise SDK on update of value. Not working - 0
 
     private String getData(int id){
-        EditText tmp = (EditText) findViewById(id);
+        EditText tmp = findViewById(id);
         return tmp.getText().toString();
     }
     private void setData(int id, String data){
-        EditText tmp = (EditText) findViewById(id);
+        EditText tmp = findViewById(id);
         if(tmp != null) tmp.setText(data);
     }
     private void loadDataFromSettings(){
-        HashMap map = new HashMap();
+        HashMap<Object, String> map = new HashMap<>();
         map.put(R.id.app_id, Settings.APP_ID);
         map.put(R.id.sdk_api_key, Settings.SDK_API_KEY);
 
@@ -216,10 +179,9 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         map.put(R.id.event_metadata_value, Settings.LAST_EVENT_METADATA_VALUE);
 
 
-        Set set = map.entrySet();
-        Iterator i = set.iterator();
-        while(i.hasNext()) {
-            Map.Entry item = (Map.Entry)i.next();
+        Set<Map.Entry<Object, String>> set = map.entrySet();
+        for (Object aSet : set) {
+            Map.Entry item = (Map.Entry) aSet;
             setData((int) item.getKey(), settings.getValue((String) item.getValue()));
         }
     }
@@ -262,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
             sha256_HMAC.init(secret_key);
 
             byte[] hash = (sha256_HMAC.doFinal(message.getBytes()));
-            StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
             for (byte b : hash) {
                 result.append(String.format("%02X", b));
             }
@@ -286,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         Log.i(TAG, "Sign in as registered user. email: " + email + " / user_id: " + user_id);
         Registration registration = new Registration();
         String data = email;
-        UserAttributes userAttributes = null;
+        UserAttributes userAttributes;
         if(!name.equals("")) {
             userAttributes = new UserAttributes.Builder().withName(name).build();
             registration = registration.withUserAttributes(userAttributes);
@@ -306,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
     }
     public void onClickLogout(View v){
         Log.i(TAG, "Logout");
-        Intercom.client().reset();
+        Intercom.client().logout();
     }
     public void onClickUpdateAttribute(View v){
         // TODO: Enable adding non string values of events (e.g. numbers, dates)
@@ -314,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         String name = getData(R.id.custom_data_var);
         settings.setValue(Settings.LAST_CUSTOM_ATTRIBUTE_NAME, name);
         settings.setValue(Settings.LAST_CUSTOM_ATTRIBUTE_VALUE, value);
-        RadioButton typeStandard = (RadioButton) findViewById(R.id.radioButtonStandard);
+        RadioButton typeStandard = findViewById(R.id.radioButtonStandard);
 
 
         Log.i(TAG, "Update Attribute. Name: " + name + " / Value: " + value + " / Type: " + (typeStandard.isChecked() ? "Standard" : "Custom"));
@@ -342,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
                 case "signed_up_at":
                 case "created_at":
                 case "remote_created_at":
-                    long date = 0;
+                    long date;
                     try{
                         date= Long.parseLong(value);
                         userAttributes = new UserAttributes.Builder().withSignedUpAt(date).build();
@@ -379,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         settings.setValue(Settings.LAST_EVENT_METADATA_VALUE, metadata_value);
         Log.i(TAG, "Submit Event. Name: " + name + " / Meta Data Name: " + metadata_name + " / Meta Data Value: " + metadata_value);
         if(!metadata_name.equals("") && !metadata_value.equals("")){
-            Map eventData = new HashMap();
+            Map<String, String> eventData = new HashMap<>();
             eventData.put(metadata_name, metadata_value);
             Intercom.client().logEvent(name, eventData);
         }
@@ -388,9 +350,11 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         }
     }
     public void onClickShowConversations(View v) {
-        Intercom.client().displayConversationsList();
+        Intercom.client().displayMessenger();
     }
-    public void onClickShowComposer(View v) { Intercom.client().displayMessageComposer(getData(R.id.message_prefill_value)); }
+    public void onClickShowComposer(View v) {
+        Intercom.client().displayMessageComposer(getData(R.id.message_prefill_value));
+    }
     public void onClickHide(View v) {
         Intercom.client().setInAppMessageVisibility(Intercom.GONE);
     }
@@ -401,7 +365,6 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         Intercom.client().setInAppMessageVisibility(Intercom.VISIBLE);
     }
     public void onClickMessengerHide(View v) {
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -515,6 +478,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     private class SendPushMessage extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -538,7 +502,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
                 outputStream.close();
                 BufferedReader responseStream = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 String line;
-                StringBuffer response = new StringBuffer();
+                StringBuilder response = new StringBuilder();
                 while ((line = responseStream.readLine()) != null) {
                     response.append(line);
                     response.append('\r');

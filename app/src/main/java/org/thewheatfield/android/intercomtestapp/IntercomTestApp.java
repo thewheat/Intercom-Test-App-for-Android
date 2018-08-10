@@ -1,6 +1,5 @@
 package org.thewheatfield.android.intercomtestapp;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
