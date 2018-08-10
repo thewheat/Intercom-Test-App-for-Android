@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -39,6 +41,7 @@ import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UnreadConversationCountListener;
 import io.intercom.android.sdk.UserAttributes;
 import io.intercom.android.sdk.identity.Registration;
+import io.intercom.android.sdk.push.IntercomPushClient;
 
 public class MainActivity extends AppCompatActivity implements UnreadConversationCountListener {
 
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
     public static final String TAG = "MainActivity";
     private Settings settings;
     private TextView txtPushLog = null;
+    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         onNewIntent(getIntent());
 
         checkRedirectToSettings();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Log.i(TAG, "New token " + newToken);
+                intercomPushClient.sendTokenToIntercom(getApplication(), newToken);
+
+            }
+        });
 
     }
     protected void onNewIntent(Intent intent) {
