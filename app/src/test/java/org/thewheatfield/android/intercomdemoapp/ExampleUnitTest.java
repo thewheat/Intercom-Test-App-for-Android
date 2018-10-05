@@ -1,4 +1,4 @@
-package org.thewheatfield.android.intercomtestapp;
+package org.thewheatfield.android.intercomdemoapp;
 
 import org.junit.Test;
 

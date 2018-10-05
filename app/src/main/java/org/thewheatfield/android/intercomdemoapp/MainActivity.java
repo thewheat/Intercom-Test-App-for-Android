@@ -1,4 +1,4 @@
-package org.thewheatfield.android.intercomtestapp;
+package org.thewheatfield.android.intercomdemoapp;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
 
         onNewIntent(getIntent());
 
-        checkRedirectToSettings();
+        // checkRedirectToSettings();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
 
             }
         });
+        Intercom.client().setLauncherVisibility(Intercom.VISIBLE);
 
     }
     protected void onNewIntent(Intent intent) {
@@ -128,7 +129,9 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         return super.onOptionsItemSelected(item);
     }
 
-
+    private boolean isUsingDemoCredentials(){
+        return (settings.getValue(Settings.APP_ID).equals("") || settings.getValue(Settings.SDK_API_KEY).equals(""));
+    }
     private void checkRedirectToSettings(){
         if(settings.getValue(Settings.APP_ID).trim().equals("") || settings.getValue(Settings.SDK_API_KEY).trim().equals("")){
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -202,6 +205,13 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
 
     public void intercomCheckSecureMode(String data){
         String secret = settings.getValue(Settings.SDK_SECURE_MODE_SECRET_KEY);
+
+
+        if(isUsingDemoCredentials()) {
+            Log.i(TAG, "Using default app secret key");
+            secret = SettingsActivity.HC_secret_key;
+        }
+
         Log.i(TAG, "Check secure mode. Data: " + data + " / Set Secure mode?: " + (!secret.equals("")));
         if(!secret.equals("")) {
             Intercom.client().setUserHash(generateHash(data, secret));
@@ -335,12 +345,13 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
             }
         }
         else{
+            found = true;
             userAttributes = new UserAttributes.Builder().withCustomAttribute(name, value).build();
         }
         if(found && userAttributes != null){
             Intercom.client().updateUser(userAttributes);
         }else{
-            Toast.makeText(getApplicationContext(), "Invalid standard attribute: " + Intercom.client().getUnreadConversationCount(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Invalid standard attribute: " + name, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -406,6 +417,10 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
     }
 
     public void onClickDisplayHelpCenter(View v) {
+        if(isUsingDemoCredentials()){
+            Toast.makeText(getApplicationContext(), "To display Help Center, go to Settings and connect to your workspace that has a Help Center", Toast.LENGTH_LONG).show();
+            return;
+        }
         Intercom.client().displayHelpCenter();
     }
 
@@ -490,6 +505,45 @@ public class MainActivity extends AppCompatActivity implements UnreadConversatio
         Toast.makeText(getApplicationContext(), "Unread count listener:: " + i, Toast.LENGTH_LONG).show();
     }
 
+    public void onClickSendChat(View view) {
+        updateData("demo", "chat");
+    }
+    public void onClickSendNote(View view) {
+        updateData("demo", "note");
+    }
+    public void onClickSendPost(View view) {
+        updateData("demo", "post");
+    }
+    public void onClickSendPush(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("This will minimize the app to receive the push notificadtion");
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                minimizeApp();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateData("demo", "push");
+                    }
+                }, 1000);
+
+
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+    public void updateData(String name, String value){
+        UserAttributes userAttributes = new UserAttributes.Builder().withCustomAttribute(name, value).build();
+        Intercom.client().updateUser(userAttributes);
+    }
 
     @SuppressLint("StaticFieldLeak")
     private class SendPushMessage extends AsyncTask<String, Void, String> {

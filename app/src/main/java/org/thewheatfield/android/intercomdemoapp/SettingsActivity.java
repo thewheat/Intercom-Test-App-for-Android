@@ -1,4 +1,4 @@
-package org.thewheatfield.android.intercomtestapp;
+package org.thewheatfield.android.intercomdemoapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,10 +27,10 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String TAG = "SettingsActivity";
 
     // hard code values into your app so you don't need to manually copy and paste them
-    private String HC_app_id = "";
-    private String HC_sdk_api_key = "";
-    private String HC_secret_key = "";
-    private String HC_gcm_api_key = "";
+    public static final String HC_app_id = "lnp45b7x";
+    public static final String HC_sdk_api_key = "android_sdk-52518ef6a360764eeb313e2630308d3cfe1de0ae";
+    public static final String HC_secret_key = "kvvHMdAI2yb5LtA-THl5mTrzEDG_nM8N5aQFvrXs";
+    public static final String HC_gcm_api_key = "";
 
 
 
@@ -48,24 +48,25 @@ public class SettingsActivity extends AppCompatActivity {
 
         settings = new Settings(getApplicationContext());
         loadDataFromSettings();
-        if(getIgnoreHardcodedValuesSettings()){
-            if(hasHardcodedValue()) {
-                panelHardcoded.setVisibility(View.VISIBLE);
-            }
-            else{
-                panelHardcoded.setVisibility(View.INVISIBLE);
-            }
-        }
-        else{
-            if(hasHardcodedValue()){
-                saveDataFromHarcodedValues();
-                loadDataFromSettings(); // reload with new data
-                panelHardcoded.setVisibility(View.VISIBLE);
-            }
-            else{
-                panelHardcoded.setVisibility(View.GONE);
-            }
-        }
+//        if(getIgnoreHardcodedValuesSettings()){
+//            if(hasHardcodedValue()) {
+//                panelHardcoded.setVisibility(View.VISIBLE);
+//            }
+//            else{
+//                panelHardcoded.setVisibility(View.INVISIBLE);
+//            }
+//        }
+//        else{
+//            if(hasHardcodedValue()){
+//                saveDataFromHarcodedValues();
+//                loadDataFromSettings(); // reload with new data
+//                panelHardcoded.setVisibility(View.VISIBLE);
+//            }
+//            else{
+//                panelHardcoded.setVisibility(View.GONE);
+//            }
+//        }
+        panelHardcoded.setVisibility(View.GONE);
         onNewIntent(getIntent());
 
     }
@@ -187,13 +188,13 @@ public class SettingsActivity extends AppCompatActivity {
         settings.setValue(Settings.SDK_API_KEY, sdk_api_key);
 
 
-        if(hasHardcodedValue()){ // only check hardcoded values if we have any
-            settings.setValue(Settings.IGNORE_HARDCODED_VALUES, ignoreHardcodedValuesCheckbox.isChecked());
-            if(!ignoreHardcodedValuesCheckbox.isChecked()){
-                saveDataFromHarcodedValues();
-                loadDataFromSettings();
-            }
-        }
+//        if(hasHardcodedValue()){ // only check hardcoded values if we have any
+//            settings.setValue(Settings.IGNORE_HARDCODED_VALUES, ignoreHardcodedValuesCheckbox.isChecked());
+//            if(!ignoreHardcodedValuesCheckbox.isChecked()){
+//                saveDataFromHarcodedValues();
+//                loadDataFromSettings();
+//            }
+//        }
 
 
         String newData = settings.getValue(Settings.APP_ID) + "_" + settings.getValue(Settings.SDK_API_KEY);

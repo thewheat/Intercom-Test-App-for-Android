@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.thewheatfield.android.intercomtestapp">
+    package="org.thewheatfield.android.intercomdemoapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -11,12 +11,9 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!-- GCM Optional PERMISSIONS -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".IntercomTestApp"
+        android:name=".IntercomDemoApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,15 +32,15 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Populate settings based on deeplink "androidTestApp://settings/?app_id=VALUE1&sdk_api_key=VALUE2&secret_key=VALUE3&gcm_api_key=VALUE4&gcm_sender_id=VALUE5" -->
-                <data android:host="settings" android:scheme="androidTestApp" />
+                <!-- Populate settings based on deeplink "androidDemoApp://settings/?app_id=VALUE1&sdk_api_key=VALUE2&secret_key=VALUE3&gcm_api_key=VALUE4&gcm_sender_id=VALUE5" -->
+                <data android:host="settings" android:scheme="androidDemoApp" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Populate test token using deeplink "androidTestApp://test_gcm_token/YOUR_TOKEN_VALUE" -->
-                <data android:host="test_gcm_token" android:scheme="androidTestApp" />
+                <!-- Populate test token using deeplink "androidDemoApp://test_gcm_token/YOUR_TOKEN_VALUE" -->
+                <data android:host="test_gcm_token" android:scheme="androidDemoApp" />
             </intent-filter>
 
         </activity>

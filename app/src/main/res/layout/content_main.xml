@@ -15,7 +15,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="org.thewheatfield.android.intercomtestapp.MainActivity">
+        tools:context="org.thewheatfield.android.intercomdemoapp.MainActivity">
 
 
         <LinearLayout
@@ -32,6 +32,25 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:text="@string/header_login"
                 />
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_sign_in_unidentified"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:onClick="onClickSignInUnidentified" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_logout"
+                android:id="@+id/logout_button"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:onClick="onClickLogout" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,6 +95,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,23 +125,63 @@
                     android:gravity="center_horizontal"
                     android:onClick="onClickSignIn" />
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_sign_in_unidentified"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:onClick="onClickSignInUnidentified" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:id="@+id/logout_button"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:onClick="onClickLogout" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="@dimen/activity_vertical_margin_header"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="Trigger Message"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Messages only get sent once. If you want to send it again, logout and login as a new unidentified user"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:gravity="center_horizontal"
+                android:onClick="onClickSendChat" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Note"
+                android:gravity="center_horizontal"
+                android:onClick="onClickSendNote" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Post"
+                android:gravity="center_horizontal"
+                android:onClick="onClickSendPost" />
+            <Button
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Push"
+                android:gravity="center_horizontal"
+                android:onClick="onClickSendPush" />
+
 
             </LinearLayout>
         </LinearLayout>
@@ -312,6 +372,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:visibility="gone"
             android:orientation="vertical"
             >
 
@@ -396,7 +457,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:paddingTop="@dimen/activity_vertical_margin_header"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:text="@string/header_misc_settings"
+                android:text="@string/header_messenger_settings"
                 />
 
             <LinearLayout
@@ -429,8 +490,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/show_conversations"
                     android:onClick="onClickShowConversations"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     />
 
                 <Button
@@ -438,8 +497,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/show_composer"
                     android:onClick="onClickShowComposer"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     />
 
                 <Button
@@ -447,60 +504,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/show_help_center"
                     android:onClick="onClickDisplayHelpCenter"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hide_after_5"
+                    android:onClick="onClickMessengerHide"
                     />
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/activity_vertical_margin_header"
-                android:text="@string/header_misc_settings"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Launcher Botton Padding"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <EditText
-                    android:id="@+id/bottom_padding"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:singleLine="true" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:onClick="onClickSetPadding"
-                    android:text="Set Padding" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -531,7 +544,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/show"
+                    android:text="Show \n .setInAppMessageVisibility(Intercom.VISIBLE)"
                     android:onClick="onClickShow"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -540,7 +553,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/hide"
+                    android:text="Hide \n .setInAppMessageVisibility(Intercom.GONE)"
                     android:onClick="onClickHide"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -570,7 +583,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/show"
+                    android:text="Show \n .setLauncherVisibility(Visibility.VISIBLE);"
                     android:onClick="onClickLauncherShow"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -579,41 +592,60 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/hide"
+                    android:text="Hide \n .setLauncherVisibility(Visibility.GONE);"
                     android:onClick="onClickLauncherHide"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     />
             </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:paddingTop="@dimen/activity_vertical_margin_header"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:text="@string/header_messenger_settings"
-                />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/show"
-                    android:onClick="onClickMessengerShow"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <Button
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/hide_after_5"
-                    android:onClick="onClickMessengerHide"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    />
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin_header"
+                    android:text="@string/header_misc_settings"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Launcher Botton Padding"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <EditText
+                        android:id="@+id/bottom_padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:singleLine="true" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:onClick="onClickSetPadding"
+                        android:text="Set Padding \n .setBottomPadding()" />
+                </LinearLayout>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -626,36 +658,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                >
                 <Button
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
                     android:text="@string/unread_start"
                     android:onClick="onClickUnreadReadListenerStart"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     />
 
                 <Button
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
                     android:text="@string/unread_stop"
                     android:onClick="onClickUnreadReadListenerStop"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/show_unread_count"
                     android:onClick="onClickUnreadReadCount"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     />
 
             </LinearLayout>

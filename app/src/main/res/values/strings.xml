@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Intercom Test App</string>
+    <string name="app_name">Intercom Demo App</string>
     <string name="intercom_gcm_sender_id">YOUR_SENDER_ID</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -11,12 +11,13 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_userid">User ID(optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Sign in \n .registerIdentifiedUser()</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_save">Save</string>
-    <string name="action_sign_in_unidentified">Register Unidentified</string>
-    <string name="action_update_attribute">Update Attribute</string>
-    <string name="action_submit_event">Submit Event</string>
+    <string name="action_sign_in_unidentified">Register Unidentified\n .registerUnidentifiedUser()</string>
+    <string name="action_update_attribute">Update Attribute \n userAttributes = new UserAttributes.Builder().______.build(); \n .updateUser(userAttributes)</string>
+    <string name="action_submit_event">Submit Event \n .logEvent(name, eventMetaData);</string>
+    <string name="action_logout">Logout \n .logout()</string>
 
 
     <string name="error_invalid_email">This email address is invalid</string>
@@ -42,8 +43,8 @@
     <string name="email">Email</string>
     <string name="user_id">User ID</string>
     <string name="use_my_token">Use My Token</string>
-    <string name="show_composer">New Message</string>
-    <string name="show_conversations">Conversations List</string>
+    <string name="show_composer">New Message \n .displayMessageComposer()</string>
+    <string name="show_conversations">Display Messenger \n .displayMessenger()</string>
     <string name="show">Show</string>
     <string name="hide">Hide</string>
     <string name="bottom_right">Bottom Right</string>
@@ -65,30 +66,30 @@
     <string name="header_misc_settings">Other Settings</string>
     <string name="header_new_message_prefill">Prefill text</string>
     <string name="header_launcher_padding">Launcher Padding</string>
-    <string name="action_launcher_padding">Set Padding</string>
+    <string name="action_launcher_padding">Set Padding \n .setBottomPadding()</string>
     <string name="header_launcher_settings">Launcher Settings</string>
     <string name="header_interface_settings">Interface Settings</string>
     <string name="header_visibility_settings">Visibility Settings</string>
     <string name="header_unread_settings">Unread Count Settings</string>
     <string name="header_test_push">Test Push</string>
-    <string name="confirm_close">You will need to completely close the app to initialise it with these new settings (go to multi tasking mode and swipe app away). If you have logcat open you can verify that the app is newly reopened from the following warning message: "GoogleService failed to initialize, status: 10, Missing an expected resource: 'R.string.google_app_id' for initializing Google services.  Possible causes are missing google-services.json or com.google.gms.google-services gradle plugin" </string>
+    <string name="confirm_close">You will need to completely close the app to initialise it with these new settings (go to multi tasking mode and swipe app away). </string>
     <string name="confirm_redirect_to_settings">Invalid settings. Specify App ID and SDK API Key to continue</string>
     <string name="gcm_api_key_warning">The FCM API Key is used to send test push notifications to this device. It is not needed for regular integrations and also should be considered a secret and not shared.</string>
     <string name="secret_key_settings_warning">The secret key should NEVER be embedded in the app, it should be used on your server end to keep the key secret. It is enabled here client side as a convenience to have a self contained app without needing server side code</string>
-    <string name="visibility_settings_explained">Hide / Show Intercom elements from your app. This will only work if you have a chat head notification on screen</string>
+    <string name="visibility_settings_explained">Hide / Show Intercom elements on your app. Useful when you want to display a screen that is not interfered by Intercom elements. You will need to hide launcher separately</string>
     <string name="chat_position_explained">Dictate where the chat head notification appears on your screen. Requires an unread message for this to work</string>
-    <string name="action_show_conversations">Conversation List</string>
-    <string name="action_compose_message">New Message</string>
+    <string name="action_show_conversations">Display Messenger \n .displayMessenger()</string>
+    <string name="action_compose_message">New Message \n .displayMessageComposer()</string>
     <string name="name">Name</string>
     <string name="ignore_hardcoded_values">Ignore Hardcoded values</string>
     <string name="hardcoded_values">Hardcoded Values</string>
     <string name="hardcoded_values_warning">You have hardcoded values defined in your code. If the following checkbox is not checked, the hardcoded values will overwrite any value you have manually specified above</string>
-    <string name="attribute_type_custom">Custom (e.g. phone)</string>
-    <string name="attribute_type_standard">Standard (e.g. email)</string>
-    <string name="show_unread_count">Show Unread Count</string>
-    <string name="show_help_center">Show Help Center</string>
+    <string name="attribute_type_custom">Custom (e.g. test_data)</string>
+    <string name="attribute_type_standard">Standard (name, phone, language_override, signed_up_at, unsubscribed_from_emails)</string>
+    <string name="show_unread_count">Show Unread Count \n .getUnreadConversationCount()</string>
+    <string name="show_help_center">Show Help Center \n .displayHelpCenter()</string>
     <string name="header_messenger_settings">Messenger Settings</string>
-    <string name="unread_start">Start Listener</string>
-    <string name="unread_stop">Stop Listener</string>
-    <string name="hide_after_5">Hide after 5 seconds</string>
+    <string name="unread_start">Start Listener \n .addUnreadConversationCountListener()</string>
+    <string name="unread_stop">Stop Listener \n .removeUnreadConversationCountListener()</string>
+    <string name="hide_after_5">Hide after 5 seconds \n .hideMessenger()</string>
 </resources>

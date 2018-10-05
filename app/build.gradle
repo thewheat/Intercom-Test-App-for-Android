@@ -5,11 +5,11 @@ android {
     buildToolsVersion '28.0.2'
 
     defaultConfig {
-        applicationId "org.thewheatfield.android.intercomtestapp"
+        applicationId "org.thewheatfield.android.intercomdemoapp"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 7
-        versionName "2.1.0"
+        versionCode 1
+        versionName "1.0.0"
         multiDexEnabled true
     }
     buildTypes {
